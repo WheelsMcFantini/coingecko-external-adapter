@@ -10,6 +10,7 @@ const customError = (data) => {
 // The parameters that the external adapter accepts in the data object
 // internal variable name followed by an array of acceptable input field names
 // if multiple matching inputs are found, the lowest index takes priority
+// Simple API so we don't take an endpoint param
 const customParams = {
   inputToken: ['token', 'asset', 'coin'],
   outputCurrency: ['currency', 'output', 'quote'],
