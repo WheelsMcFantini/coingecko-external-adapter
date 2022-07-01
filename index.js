@@ -7,10 +7,9 @@ const customError = (data) => {
   return false
 }
 
-// Define custom parameters to be used by the adapter.
-// Extra parameters can be stated in the extra object,
-// with a Boolean value indicating whether or not they
-// should be required.
+// The parameters that the external adapter accepts in the data object
+// internal variable name followed by an array of acceptable input field names
+// if multiple matching inputs are found, the lowest index takes priority
 const customParams = {
   inputToken: ['token', 'asset', 'coin'],
   outputCurrency: ['currency', 'output', 'quote'],
@@ -18,12 +17,11 @@ const customParams = {
 }
 
 const createRequest = (input, callback) => {
-  // The Validator helps you validate the Chainlink request data
+  // The Validator helps you validate the Chainlink request data by checking types
   const validator = new Validator(callback, input, customParams)
   const jobRunID = validator.validated.id
   const token = validator.validated.data.inputToken.toLowerCase()
   const currency = validator.validated.data.outputCurrency.toLowerCase()
-
   const url = `https://api.coingecko.com/api/v3/coins/${token}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false`
 
   const params = {
@@ -31,11 +29,7 @@ const createRequest = (input, callback) => {
     currency
   }
 
-  // This is where you would add method and headers
-  // you can add method like GET or POST and add it to the config
-  // The default is GET requests
-  // method = 'get'
-  // headers = 'headers.....'
+  // Config for Requester call
   const config = {
     url,
     params
@@ -45,12 +39,21 @@ const createRequest = (input, callback) => {
   // or connection failure
   Requester.request(config, customError)
     .then(response => {
-      // It's common practice to store the desired value at the top-level
-      // result key. This allows different adapters to be compatible with
-      // one another.
-      const resObj = { symbol: `${response.data.symbol}-${currency}`, timestamp: `${response.data.last_updated}`, price: `${response.data.market_data.current_price[currency]}`, market_cap: `${response.data.market_data.market_cap[currency]}`, total_volume: `${response.data.market_data.total_volume[currency]}` }
+      // Originally I returned all the API data and the adapter result,
+      // const resObj = { symbol: `${response.data.symbol}-${currency}`, timestamp: `${response.data.last_updated}`, price: `${response.data.market_data.current_price[currency]}`, market_cap: `${response.data.market_data.market_cap[currency]}`, total_volume: `${response.data.market_data.total_volume[currency]}` }
+      // response.data.result = resObj
 
-      response.data.result = resObj
+      // Decided it was cleaner to just return my result object, not sure what the best practice is
+      const customDataObj = {
+        result: {
+          symbol: `${response.data.symbol}-${currency}`,
+          timestamp: `${response.data.last_updated}`,
+          price: `${response.data.market_data.current_price[currency]}`,
+          market_cap: `${response.data.market_data.market_cap[currency]}`,
+          total_volume: `${response.data.market_data.total_volume[currency]}`
+        }
+      }
+      response.data = customDataObj
       callback(response.status, Requester.success(jobRunID, response))
     })
     .catch(error => {

@@ -32,10 +32,10 @@ describe('createRequest', () => {
     const requests = [
       { name: 'empty body', testData: {} },
       { name: 'empty data', testData: { data: {} } },
-      { name: 'base not supplied', testData: { id: jobID, data: { quote: 'USD' } } },
-      { name: 'quote not supplied', testData: { id: jobID, data: { token: 'ETH' } } },
-      { name: 'unknown base', testData: { id: jobID, data: { token: 'not_real', quote: 'USD' } } },
-      { name: 'unknown quote', testData: { id: jobID, data: { token: 'ETH', quote: 'not_real' } } }
+      { name: 'currency not supplied', testData: { id: jobID, data: { currency: 'USD' } } },
+      { name: 'token not supplied', testData: { id: jobID, data: { token: 'ETH' } } },
+      { name: 'unknown base', testData: { id: jobID, data: { token: 'not_real', currency: 'USD' } } },
+      { name: 'unknown quote', testData: { id: jobID, data: { token: 'ETH', currency: 'not_real' } } }
     ]
 
     requests.forEach(req => {
