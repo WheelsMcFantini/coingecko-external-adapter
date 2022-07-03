@@ -16,25 +16,25 @@ Adapter built as a technical challenge
 ## Output
 
 ```json
-{ 
-  "jobRunID": "1",
-  "data": {
-    "result": {
-      "symbol": "btc-usd",
-      "timestamp": "2022-07-01T20:37:37.029Z",
-      "price": "19569.35", 
+{
+   "jobRunID":"1",
+   "data":{
+      "result":{
+         "symbol":"btc-usd",
+         "timestamp":"2022-07-01T20:37:37.029Z",
+         "price":"19569.35",
+         "market_cap":"374263457221",
+         "total_volume":"30139189729"
+      }
+   },
+   "result":{
+      "symbol":"btc-usd",
+      "timestamp":"2022-07-01T20:37:37.029Z",
+      "price":"19569.35",
       "market_cap":"374263457221",
       "total_volume":"30139189729"
-      }
-    },
-  "result": {
-    "symbol":"btc-usd",
-    "timestamp":"2022-07-01T20:37:37.029Z",
-    "price":"19569.35",
-    "market_cap":"374263457221",
-    "total_volume":"30139189729"
-    },
-  "statusCode":200
+   },
+   "statusCode":200
 }
 ```
 
@@ -97,7 +97,7 @@ zip -r coingecko-external-adapter.zip .
 - In Lambda Functions, create function
 - On the Create function page:
   - Give the function a name
-  - Use Node.js 12.x for the runtime
+  - Use Node.js 16.x for the runtime
   - Choose an existing role or create a new one
   - Click Create Function
 - Under Function code, select "Upload a .zip file" from the Code entry type drop-down
