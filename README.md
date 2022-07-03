@@ -2,6 +2,8 @@
 
 Template: https://github.com/thodges-gh/CL-EA-NodeJS-Template
 
+Adapter built as a technical challenge
+
 ## Todo
 - Validate given input tokens/currencies against stored/queried list of valid tokens/currencies
 - Create custom error for tokens not found in the stored/queried list

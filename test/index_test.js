@@ -4,7 +4,7 @@ const createRequest = require('../index.js').createRequest
 describe('createRequest', () => {
   const jobID = '1'
 
-  // all of these templated 'successful' tests fail, should be getting a 200 response, but get the response from app.js line 58
+  // modified the tests below to match my parameters, the below 4 tests should be successful
   context('successful calls', () => {
     const requests = [
       { name: 'id not supplied', testData: { data: { token: 'ethereum', quote: 'USD' } } },
@@ -28,6 +28,7 @@ describe('createRequest', () => {
     })
   })
 
+  // modified the tests below to match my parameters, the below 6 tests should fail
   context('error calls', () => {
     const requests = [
       { name: 'empty body', testData: {} },
